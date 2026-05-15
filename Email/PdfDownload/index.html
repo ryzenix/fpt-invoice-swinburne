@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloading Invoice...</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f0f2f5;
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-width: 400px;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0066b3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        a { color: #0066b3; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container" id="content">
+        <div class="loader" id="loader"></div>
+        <h2 id="status-title">Starting Download...</h2>
+        <p id="status-desc">Please wait while we fetch your document.</p>
+    </div>
+
+    <script>
+        // Download the single hardcoded PDF file regardless of the token
+        const pdfUrl = `../../files/1_001_K25TAA_138356_8237.pdf`;
+        
+        // Create a hidden link to trigger the download
+        const a = document.createElement('a');
+        a.href = pdfUrl;
+        a.download = `1_001_K25TAA_138356_8237.pdf`;
+        document.body.appendChild(a);
+        
+        // Short delay for visual effect
+        setTimeout(() => {
+            a.click();
+            document.body.removeChild(a);
+            
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('status-title').innerText = 'Download Started';
+            document.getElementById('status-desc').innerHTML = `If your download didn't start automatically, <a href="${pdfUrl}" download>click here to download</a>.`;
+        }, 800);
+    </script>
+</body>
+</html>
